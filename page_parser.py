@@ -6,10 +6,33 @@ from bs4 import BeautifulSoup, Tag
 
 
 class PageParser:
+    """Class for parsing the HTML content of a given URL
+
+    Preconfigured to parse only from https://www.prospektmaschine.de/
+
+    Attributes:
+        url: URL of the page to be parsed
+
+    """
+
     def __init__(self, url):
+        """Constructor
+
+        Args:
+            url (str): URL of the page to be parsed
+        """
         self.url = url
 
     def _parse_html(self):
+        """Parses the HTML content of the given URL
+
+        Returns:
+            str: Response represented as a string
+
+        Raises:
+            requests.exceptions.HTTPError: If the response status code is not 200
+        """
+
         try:
             response = requests.get(self.url)
 
@@ -21,6 +44,13 @@ class PageParser:
             print(err)
 
     def extract_data(self):
+        """Extracts the data from the string representation of the HTML content
+
+        Returns:
+            list: List of dictionaries containing the brochure data
+
+        """
+
         res = self._parse_html()
         parse_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
